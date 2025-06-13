@@ -1,0 +1,41 @@
+services:
+  bot:
+    build: .
+    depends_on:
+      - mongo # Зависит от mongo
+    volumes:
+      - ./.state-save:/bot/.state-save # Проброс каталога сохранения
+      - ./logs:/bot/logs # Проброс каталога логов
+      - ./bot/data:/bot/bot/data # Проброс каталога данных
+      - ./config.json:/bot/config.json:ro # Проброс конфига
+      - /etc/localtime:/etc/localtime:ro # Проброс времени
+      # - /images:/images
+      - ./bot/temp:/bot/temp # Проброс папки temp
+    restart: always # Перезапускать контейнер при падении
+    networks:
+      - shared_network
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+      - 8.8.4.4
+      - 1.0.0.1
+
+  mongo:
+    image: mongo:latest # Имя образа
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: example # Обязательно поменять пароль перед деплоем здесь и в config.json!!!
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb:/data/db # Каталог с данными
+    restart: always # Перезапускать контейнер при падении
+    command: mongod --quiet --logpath /dev/null
+    stop_signal: SIGINT
+    networks:
+      - shared_network
+
+networks:
+  shared_network:
+    name: shared_network
+    external: true

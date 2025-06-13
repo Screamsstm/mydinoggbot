@@ -1,0 +1,16 @@
+{
+    "active_tasks": true,
+    "advert_token": "",
+    "base_logging": false,
+    "bot_devs": [7986587880],
+    "bot_group_id": 1002264437108,
+    "bot_report_id": 7986587880,
+    "bot_token": "7530029351:AAE0VsK-8fXAWQGL-0Ky26BKjiZuxSPlN6A",
+    "check_translate": false,
+    "debug": false,
+    "handlers_logging": false,
+    "logs_dir": "logs",
+    "mongo_url": "mongodb://localhost",
+    "only_dev": false,
+    "show_advert": false
+}
